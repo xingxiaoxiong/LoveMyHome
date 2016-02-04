@@ -18,6 +18,7 @@ class HomeViewController: UIViewController {
     var camera: SCNNode = SCNNode()
     var geometryNode: SCNNode = SCNNode()
     var staticGeometry: SCNNode = SCNNode()
+    var dynamicGeometry: SCNNode = SCNNode()
     
     var currentAngle: Float = 0.0
 
@@ -71,10 +72,12 @@ class HomeViewController: UIViewController {
         backNode.position = SCNVector3Make(0, Float(Constants.RoomYLength) / 2.0, Float(Constants.RoomZLength) / 2.0)
         staticGeometry.addChildNode(backNode)
         
-        geometryNode.addChildNode(staticGeometry)
-        scene.rootNode.addChildNode(geometryNode)
+        //debugLoadModelFromJSON()
+        debugLoadModelFromDae()
         
-        debugLoadModel()
+        geometryNode.addChildNode(staticGeometry)
+        geometryNode.addChildNode(dynamicGeometry)
+        scene.rootNode.addChildNode(geometryNode)
         
         let pointLightNode = SCNNode()
         pointLightNode.light = SCNLight()
@@ -91,14 +94,14 @@ class HomeViewController: UIViewController {
         scene.rootNode.addChildNode(pointLightNode2)
         
         camera.camera = SCNCamera()
-        camera.position = SCNVector3Make(0, 1.6, 0)
+        camera.position = SCNVector3Make(0, 1.6, 3)
         scene.rootNode.addChildNode(camera)
         
         let panRecognizer = UIPanGestureRecognizer(target: self, action: "panGesture:")
         sceneView.addGestureRecognizer(panRecognizer)
         
         sceneView.scene = scene
-        sceneView.allowsCameraControl = true
+        //sceneView.allowsCameraControl = true
     }
     
     func panGesture(sender: UIPanGestureRecognizer) {
@@ -135,7 +138,6 @@ class HomeViewController: UIViewController {
         let element = SCNGeometryElement(data: indexData, primitiveType: SCNGeometryPrimitiveType.Triangles, primitiveCount: indices.count / 3, bytesPerIndex: sizeof(Int))
 
         let modelGeometry = SCNGeometry(sources: [source], elements: [element])
-        modelGeometry.firstMaterial!.diffuse.contents = UIColor.blueColor()
         return SCNNode(geometry: modelGeometry)
     
 //        let boxGeo = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 0.1)
@@ -144,7 +146,7 @@ class HomeViewController: UIViewController {
 
     }
     
-    func debugLoadModel() {
+    func debugLoadModelFromJSON() {
         let location = NSString(string:"/Users/shapeare/Documents/misc_chair01.js").stringByExpandingTildeInPath
         let rawData = NSData(contentsOfFile: location)
         let modelData = try? NSJSONSerialization.JSONObjectWithData(rawData!, options: NSJSONReadingOptions.AllowFragments)
@@ -161,8 +163,19 @@ class HomeViewController: UIViewController {
         
         let modelNode = modelFromJson(modelData as! NSDictionary)
         
-        modelNode.position = SCNVector3Make(0, 0, -4)
+        modelNode.position = SCNVector3Make(0, 0, -3)
         scene.rootNode.addChildNode(modelNode)
+    }
+    
+    func debugLoadModelFromDae() {
+        let node = SCNNode()
+        let modelScene = SCNScene(named: "misc_chair01.dae")
+        for child : AnyObject in modelScene!.rootNode.childNodes {
+            node.addChildNode(child as! SCNNode)
+        }
+        node.position = SCNVector3Make(0, 0, -4)
+        dynamicGeometry.addChildNode(node)
+        scene.rootNode.addChildNode(node)
     }
     
 }
