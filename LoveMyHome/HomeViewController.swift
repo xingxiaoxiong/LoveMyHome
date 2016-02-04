@@ -98,7 +98,7 @@ class HomeViewController: UIViewController {
         sceneView.addGestureRecognizer(panRecognizer)
         
         sceneView.scene = scene
-        //sceneView.allowsCameraControl = true
+        sceneView.allowsCameraControl = true
     }
     
     func panGesture(sender: UIPanGestureRecognizer) {
@@ -124,15 +124,18 @@ class HomeViewController: UIViewController {
             print("error casting indices")
             return SCNNode()
         }
+    
+//        let faces = data["faces"] as? [AnyObject]
+//        let intFaces = (faces as! [Int]).map({Int32($0)})
         let indexData = NSData(bytes: indices, length: sizeof(Int)*indices.count)
     
         let source = SCNGeometrySource(data: positionData, semantic:
                 SCNGeometrySourceSemanticVertex, vectorCount: indices.count, floatComponents: true, componentsPerVector: 3, bytesPerComponent: sizeof(Float32), dataOffset: 0, dataStride: sizeof(Float32)*3)
     
-        let element = SCNGeometryElement(data: indexData, primitiveType: SCNGeometryPrimitiveType.Triangles, primitiveCount: indices.count, bytesPerIndex: sizeof(Int))
+        let element = SCNGeometryElement(data: indexData, primitiveType: SCNGeometryPrimitiveType.Triangles, primitiveCount: indices.count / 3, bytesPerIndex: sizeof(Int))
 
         let modelGeometry = SCNGeometry(sources: [source], elements: [element])
-    
+        modelGeometry.firstMaterial!.diffuse.contents = UIColor.blueColor()
         return SCNNode(geometry: modelGeometry)
     
 //        let boxGeo = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 0.1)
@@ -142,7 +145,7 @@ class HomeViewController: UIViewController {
     }
     
     func debugLoadModel() {
-        let location = NSString(string:"/Users/shapeare/Documents/test.js").stringByExpandingTildeInPath
+        let location = NSString(string:"/Users/shapeare/Documents/misc_chair01.js").stringByExpandingTildeInPath
         let rawData = NSData(contentsOfFile: location)
         let modelData = try? NSJSONSerialization.JSONObjectWithData(rawData!, options: NSJSONReadingOptions.AllowFragments)
         
@@ -158,7 +161,7 @@ class HomeViewController: UIViewController {
         
         let modelNode = modelFromJson(modelData as! NSDictionary)
         
-        modelNode.position = SCNVector3Make(0, 0, -3)
+        modelNode.position = SCNVector3Make(0, 0, -4)
         scene.rootNode.addChildNode(modelNode)
     }
     
