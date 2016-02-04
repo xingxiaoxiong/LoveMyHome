@@ -19,25 +19,74 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hY6-eu-Zda">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="531"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="554"/>
                             </sceneKitView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OmO-19-etq">
-                                <rect key="frame" x="252.5" y="550" width="96" height="30"/>
-                                <state key="normal" title="Find Furniture"/>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="8qd-dm-frg">
+                                <rect key="frame" x="20" y="562" width="560" height="30"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="lYN-9w-XPn">
+                                        <rect key="frame" x="0.0" y="0.0" width="186.5" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tLf-kg-5XB">
+                                                <rect key="frame" x="0.0" y="0.0" width="93.5" height="30"/>
+                                                <state key="normal" title="Load Design"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8N-N1-EEe">
+                                                <rect key="frame" x="93" y="0.0" width="93" height="30"/>
+                                                <state key="normal" title="Save Design"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OmO-19-etq">
+                                        <rect key="frame" x="186" y="0.0" width="187" height="30"/>
+                                        <state key="normal" title="Find Furniture"/>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="d0f-LK-8Rj">
+                                        <rect key="frame" x="373" y="0.0" width="186.5" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3oU-hW-CaA">
+                                                <rect key="frame" x="0.0" y="0.0" width="64" height="30"/>
+                                                <state key="normal" title="Translate"/>
+                                                <connections>
+                                                    <action selector="translateButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ndh-ib-dci"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Pf-Rt-0oK">
+                                                <rect key="frame" x="69" y="0.0" width="45" height="30"/>
+                                                <state key="normal" title="Rotate"/>
+                                                <connections>
+                                                    <action selector="rotateButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pFc-v3-PWO"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ekJ-XF-cdi">
+                                                <rect key="frame" x="119" y="0.0" width="67" height="30"/>
+                                                <state key="normal" title="Complete"/>
+                                                <connections>
+                                                    <action selector="completeButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b3f-yt-L8F"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="8qd-dm-frg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3Cb-7z-LQd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8qd-dm-frg" secondAttribute="trailing" id="8Va-g0-bbp"/>
+                            <constraint firstItem="8qd-dm-frg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="9nU-qW-8M7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hY6-eu-Zda" secondAttribute="trailing" constant="-20" id="D4c-HM-PPP"/>
                             <constraint firstItem="hY6-eu-Zda" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="Ufy-Rw-7lD"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="OmO-19-etq" secondAttribute="bottom" constant="20" id="ZIM-r5-kFd"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hY6-eu-Zda" secondAttribute="bottom" constant="69" id="oau-ZH-wCs"/>
-                            <constraint firstItem="OmO-19-etq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wQx-9O-Qss"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="8qd-dm-frg" secondAttribute="bottom" constant="8" id="aQW-Kw-7Vy"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hY6-eu-Zda" secondAttribute="bottom" constant="46" id="oau-ZH-wCs"/>
                             <constraint firstItem="hY6-eu-Zda" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="yAR-Sx-30p"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="completeButton" destination="ekJ-XF-cdi" id="7Ua-H4-dg3"/>
+                        <outlet property="rotateButton" destination="6Pf-Rt-0oK" id="98V-hW-oXC"/>
                         <outlet property="sceneView" destination="hY6-eu-Zda" id="tk1-5T-Lht"/>
+                        <outlet property="translateButton" destination="3oU-hW-CaA" id="8Rq-NW-kRD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

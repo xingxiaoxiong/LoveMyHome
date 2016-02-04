@@ -12,7 +12,14 @@ import SceneKit
 
 class HomeViewController: UIViewController {
     
+    enum State {
+        case Normal, Translate, Rotate
+    }
+    
     @IBOutlet weak var sceneView: SCNView!
+    @IBOutlet weak var translateButton: UIButton!
+    @IBOutlet weak var rotateButton: UIButton!
+    @IBOutlet weak var completeButton: UIButton!
     
     var scene: SCNScene = SCNScene()
     var camera: SCNNode = SCNNode()
@@ -20,17 +27,43 @@ class HomeViewController: UIViewController {
     var staticGeometry: SCNNode = SCNNode()
     var dynamicGeometry: SCNNode = SCNNode()
     
+    var state: State = .Normal
+    var selectedNode: SCNNode = SCNNode()
+    // camera
     var currentAngle: Float = 0.0
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         sceneSetup()
+        
+        translateButton.enabled = false
+        rotateButton.enabled = false
+        completeButton.enabled = false
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func translateButtonTapped(sender: UIButton) {
+        state = .Translate
+        rotateButton.enabled = true
+        translateButton.enabled = false
+    }
+    
+    @IBAction func rotateButtonTapped(sender: UIButton) {
+        state = .Rotate
+        translateButton.enabled = true
+        rotateButton.enabled = false
+    }
+    
+    @IBAction func completeButtonTapped(sender: UIButton) {
+        state = .Normal
+        rotateButton.enabled = false
+        translateButton.enabled = false
+        completeButton.enabled = false
     }
 
     func sceneSetup () {
@@ -109,14 +142,27 @@ class HomeViewController: UIViewController {
     
     func panGesture(sender: UIPanGestureRecognizer) {
         let translation = sender.translationInView(sender.view!)
-        var newAngle = (Float)(translation.x)*(Float)(M_PI)/180.0
-        newAngle += currentAngle
-
-        camera.eulerAngles.y = newAngle
+        
+        switch state {
+        case .Normal:
+            var newAngle = (Float)(translation.x)*(Float)(M_PI)/180.0
+            newAngle += currentAngle
             
-        if(sender.state == UIGestureRecognizerState.Ended) {
-            currentAngle = newAngle
+            camera.eulerAngles.y = newAngle
+            
+            if(sender.state == UIGestureRecognizerState.Ended) {
+                currentAngle = newAngle
+            }
+        case .Translate:
+            let deltaX = (Float)(translation.x) / 1000.0
+            let deltaZ = (Float)(translation.y) / 1000.0
+            selectedNode.position = SCNVector3Make(selectedNode.position.x + deltaX, selectedNode.position.y, selectedNode.position.z + deltaZ)
+//            selectedNode.transform = SCNMatrix4MakeTranslation(xCoord, selectedNode.position.y, zCoord)
+        case .Rotate:
+            var deltaAngle = (Float)(translation.x)*(Float)(M_PI)/180.0 / 3.0
+            selectedNode.eulerAngles.y = selectedNode.eulerAngles.y + deltaAngle
         }
+        
     }
     
     func handleTap(gestureRecognize: UIGestureRecognizer) {
@@ -130,8 +176,14 @@ class HomeViewController: UIViewController {
             }
             
             if node.parentNode == dynamicGeometry {
-                node.geometry?.firstMaterial?.diffuse.contents = UIColor.darkGrayColor()
-            }            
+                //node.geometry?.firstMaterial?.diffuse.contents = UIColor.darkGrayColor()
+                //TransformWidget(node: node)
+                state = .Translate
+                rotateButton.enabled = true
+                completeButton.enabled = true
+                
+                selectedNode = node
+            }
         }
     }
     
