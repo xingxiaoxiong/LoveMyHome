@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		51E71D391C62E31C00694A22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E71D381C62E31C00694A22 /* AppDelegate.swift */; };
-		51E71D3B1C62E31C00694A22 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E71D3A1C62E31C00694A22 /* ViewController.swift */; };
+		51E71D3B1C62E31C00694A22 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E71D3A1C62E31C00694A22 /* HomeViewController.swift */; };
 		51E71D3E1C62E31C00694A22 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51E71D3C1C62E31C00694A22 /* Main.storyboard */; };
 		51E71D401C62E31C00694A22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51E71D3F1C62E31C00694A22 /* Assets.xcassets */; };
 		51E71D431C62E31C00694A22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51E71D411C62E31C00694A22 /* LaunchScreen.storyboard */; };
+		51E71D4C1C62EA5700694A22 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E71D4B1C62EA5700694A22 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		51E71D351C62E31C00694A22 /* LoveMyHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoveMyHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51E71D381C62E31C00694A22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		51E71D3A1C62E31C00694A22 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		51E71D3A1C62E31C00694A22 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		51E71D3D1C62E31C00694A22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		51E71D3F1C62E31C00694A22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		51E71D421C62E31C00694A22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		51E71D441C62E31C00694A22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		51E71D4B1C62EA5700694A22 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +56,23 @@
 		51E71D371C62E31C00694A22 /* LoveMyHome */ = {
 			isa = PBXGroup;
 			children = (
+				51E71D4D1C62F93400694A22 /* Client */,
 				51E71D381C62E31C00694A22 /* AppDelegate.swift */,
-				51E71D3A1C62E31C00694A22 /* ViewController.swift */,
+				51E71D3A1C62E31C00694A22 /* HomeViewController.swift */,
 				51E71D3C1C62E31C00694A22 /* Main.storyboard */,
 				51E71D3F1C62E31C00694A22 /* Assets.xcassets */,
 				51E71D411C62E31C00694A22 /* LaunchScreen.storyboard */,
 				51E71D441C62E31C00694A22 /* Info.plist */,
+				51E71D4B1C62EA5700694A22 /* Constants.swift */,
 			);
 			path = LoveMyHome;
+			sourceTree = "<group>";
+		};
+		51E71D4D1C62F93400694A22 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Client;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,8 +147,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51E71D3B1C62E31C00694A22 /* ViewController.swift in Sources */,
+				51E71D3B1C62E31C00694A22 /* HomeViewController.swift in Sources */,
 				51E71D391C62E31C00694A22 /* AppDelegate.swift in Sources */,
+				51E71D4C1C62EA5700694A22 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
