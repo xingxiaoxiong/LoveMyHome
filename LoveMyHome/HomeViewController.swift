@@ -98,7 +98,10 @@ class HomeViewController: UIViewController {
         scene.rootNode.addChildNode(camera)
         
         let panRecognizer = UIPanGestureRecognizer(target: self, action: "panGesture:")
+        let tapGesture = UITapGestureRecognizer(target: self, action: "handleTap:")
+        
         sceneView.addGestureRecognizer(panRecognizer)
+        sceneView.addGestureRecognizer(tapGesture)
         
         sceneView.scene = scene
         //sceneView.allowsCameraControl = true
@@ -113,6 +116,22 @@ class HomeViewController: UIViewController {
             
         if(sender.state == UIGestureRecognizerState.Ended) {
             currentAngle = newAngle
+        }
+    }
+    
+    func handleTap(gestureRecognize: UIGestureRecognizer) {
+        let p = gestureRecognize.locationInView(sceneView)
+        let hitResults = sceneView.hitTest(p, options: nil)
+    
+        if hitResults.count > 0 {
+            let result: AnyObject! = hitResults[0]
+            guard let node = result.node else {
+                return
+            }
+            
+            if node.parentNode == dynamicGeometry {
+                node.geometry?.firstMaterial?.diffuse.contents = UIColor.darkGrayColor()
+            }            
         }
     }
     
@@ -168,14 +187,14 @@ class HomeViewController: UIViewController {
     }
     
     func debugLoadModelFromDae() {
-        let node = SCNNode()
+    
         let modelScene = SCNScene(named: "misc_chair01.dae")
         for child : AnyObject in modelScene!.rootNode.childNodes {
-            node.addChildNode(child as! SCNNode)
+            let node = child as! SCNNode
+            node.position = SCNVector3Make(0, 0, -4)
+            dynamicGeometry.addChildNode(node)
         }
-        node.position = SCNVector3Make(0, 0, -4)
-        dynamicGeometry.addChildNode(node)
-        scene.rootNode.addChildNode(node)
+
     }
     
 }
