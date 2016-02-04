@@ -33,7 +33,6 @@ class HomeViewController: UIViewController {
     }
 
     func sceneSetup () {
-        scene = SCNScene()
         
         // Constructing basic structure
         let leftWallGeometry = SCNBox(width: Constants.WallThickness, height: Constants.RoomYLength, length: Constants.RoomZLength, chamferRadius: 0.0)
@@ -99,6 +98,7 @@ class HomeViewController: UIViewController {
         sceneView.addGestureRecognizer(panRecognizer)
         
         sceneView.scene = scene
+        //sceneView.allowsCameraControl = true
     }
     
     func panGesture(sender: UIPanGestureRecognizer) {
@@ -113,11 +113,53 @@ class HomeViewController: UIViewController {
         }
     }
     
+    func modelFromJson(data: NSDictionary) -> SCNNode {
+        guard let positions = data["vertices"] as? [Float32] else {
+            print("error casting positions")
+            return SCNNode()
+        }
+        let positionData = NSData(bytes: positions, length: sizeof(Float32)*positions.count)
+    
+        guard let indices = data["faces"] as? [Int] else {
+            print("error casting indices")
+            return SCNNode()
+        }
+        let indexData = NSData(bytes: indices, length: sizeof(Int)*indices.count)
+    
+        let source = SCNGeometrySource(data: positionData, semantic:
+                SCNGeometrySourceSemanticVertex, vectorCount: indices.count, floatComponents: true, componentsPerVector: 3, bytesPerComponent: sizeof(Float32), dataOffset: 0, dataStride: sizeof(Float32)*3)
+    
+        let element = SCNGeometryElement(data: indexData, primitiveType: SCNGeometryPrimitiveType.Triangles, primitiveCount: indices.count, bytesPerIndex: sizeof(Int))
+
+        let modelGeometry = SCNGeometry(sources: [source], elements: [element])
+    
+        return SCNNode(geometry: modelGeometry)
+    
+//        let boxGeo = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 0.1)
+//        boxGeo.firstMaterial!.diffuse.contents = UIColor.lightGrayColor()
+//        return SCNNode(geometry: boxGeo)
+
+    }
+    
     func debugLoadModel() {
-        let location = NSString(string:"/Users/shapeare/Documents/misc_chair01.js").stringByExpandingTildeInPath
-        print(location)
-        let fileContent = try? NSString(contentsOfFile: location, encoding: NSUTF8StringEncoding)
-        print(fileContent)
+        let location = NSString(string:"/Users/shapeare/Documents/test.js").stringByExpandingTildeInPath
+        let rawData = NSData(contentsOfFile: location)
+        let modelData = try? NSJSONSerialization.JSONObjectWithData(rawData!, options: NSJSONReadingOptions.AllowFragments)
+        
+//        let dict = modelData as! NSDictionary
+//        guard let vertices = dict["vertices"] as? [Float32] else {
+//            print("error casting vertices")
+//            return
+//        }
+//        guard let indices = dict["faces"] as? [Int] else {
+//            print("error casting indices")
+//            return
+//        }
+        
+        let modelNode = modelFromJson(modelData as! NSDictionary)
+        
+        modelNode.position = SCNVector3Make(0, 0, -3)
+        scene.rootNode.addChildNode(modelNode)
     }
     
 }
