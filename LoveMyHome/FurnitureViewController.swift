@@ -13,11 +13,11 @@ class FurnitureViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var furnitureList: [Furniture] = []
+    var furnitureList = [Furniture]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        furnitureList = fetchAllFurniture()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -92,6 +92,20 @@ class FurnitureViewController: UIViewController {
     func saveContext() {
         CoreDataStackManager.sharedInstance().saveContext()
     }
+    
+    func fetchAllFurniture() -> [Furniture] {
+        
+        // Create the Fetch Request
+        let fetchRequest = NSFetchRequest(entityName: "Furniture")
+        
+        // Execute the Fetch Request
+        do {
+            return try sharedContext.executeFetchRequest(fetchRequest) as! [Furniture]
+        } catch  let error as NSError {
+            print("Error in fetchAllPins(): \(error)")
+            return [Furniture]()
+        }
+    }
 
 }
 
@@ -160,6 +174,10 @@ extension FurnitureViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let furniture = furnitureList[indexPath.row]
         
+        guard let modelData = furniture.modelData else {
+            return
+        }
     }
 }

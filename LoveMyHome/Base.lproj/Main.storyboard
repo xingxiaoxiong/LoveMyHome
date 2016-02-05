@@ -131,7 +131,7 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="01d-sT-VAk">
                                                     <rect key="frame" x="0.0" y="9" width="176" height="128"/>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nuN-Pf-Uk7">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nuN-Pf-Uk7">
                                                     <rect key="frame" x="46" y="99" width="122" height="30"/>
                                                     <color key="backgroundColor" red="0.41897603871336309" green="0.61888844695495371" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <state key="normal" title="Click to download">
@@ -147,6 +147,8 @@
                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <constraints>
                                             <constraint firstItem="01d-sT-VAk" firstAttribute="leading" secondItem="5Xj-Mh-VzH" secondAttribute="leadingMargin" constant="-8" id="4cM-hb-fBy"/>
+                                            <constraint firstItem="nuN-Pf-Uk7" firstAttribute="trailing" secondItem="5Xj-Mh-VzH" secondAttribute="trailingMargin" id="4sv-wi-5vi"/>
+                                            <constraint firstItem="nuN-Pf-Uk7" firstAttribute="bottom" secondItem="5Xj-Mh-VzH" secondAttribute="bottomMargin" id="76P-GO-P6f"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="01d-sT-VAk" secondAttribute="trailing" constant="-8" id="PEa-Vk-Qga"/>
                                             <constraint firstItem="01d-sT-VAk" firstAttribute="top" secondItem="5Xj-Mh-VzH" secondAttribute="topMargin" constant="1" id="q2o-eR-RNL"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="01d-sT-VAk" secondAttribute="bottom" constant="-8" id="rNg-6v-ZyT"/>
