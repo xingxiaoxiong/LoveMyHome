@@ -133,35 +133,35 @@ extension FurnitureViewController: UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CellIdentifier, forIndexPath: indexPath) as! FurnitureCell
         cell.thumbnail.image = nil
         
-        let imageURL = NSURL(string: furniture.thumbnailUrl)
-        if let imageData = NSData(contentsOfURL: imageURL!) {
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                
-                thumbnail = UIImage(data: imageData)
-                cell.thumbnail.image = thumbnail
+//        let imageURL = NSURL(string: furniture.thumbnailUrl)
+//        if let imageData = NSData(contentsOfURL: imageURL!) {
+//            
+//            dispatch_async(dispatch_get_main_queue(), {
+//                
+//                thumbnail = UIImage(data: imageData)
+//                cell.thumbnail.image = thumbnail
 //                furniture.thumbnail = thumbnail
 //                self.saveContext()
-            })
-        }
-        
-//        if furniture.thumbnail != nil {
-//            thumbnail = furniture.thumbnail
-//        } else {
-//            
-//            let imageURL = NSURL(string: furniture.thumbnailUrl)
-//            if let imageData = NSData(contentsOfURL: imageURL!) {
-//                
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    
-//                    thumbnail = UIImage(data: imageData)
-//                    cell.thumbnail.image = thumbnail
-//                    furniture.thumbnail = thumbnail
-//                    self.saveContext()
-//                })
-//            }
-//            
+//            })
 //        }
+        
+        if furniture.thumbnail != nil {
+            thumbnail = furniture.thumbnail
+        } else {
+            
+            let imageURL = NSURL(string: furniture.thumbnailUrl)
+            if let imageData = NSData(contentsOfURL: imageURL!) {
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    thumbnail = UIImage(data: imageData)
+                    cell.thumbnail.image = thumbnail
+                    furniture.thumbnail = thumbnail
+                    self.saveContext()
+                })
+            }
+            
+        }
         
         cell.thumbnail.image = thumbnail
         
