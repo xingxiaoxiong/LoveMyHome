@@ -159,7 +159,7 @@ class HomeViewController: UIViewController {
             selectedNode.position = SCNVector3Make(selectedNode.position.x + deltaX, selectedNode.position.y, selectedNode.position.z + deltaZ)
 //            selectedNode.transform = SCNMatrix4MakeTranslation(xCoord, selectedNode.position.y, zCoord)
         case .Rotate:
-            var deltaAngle = (Float)(translation.x)*(Float)(M_PI)/180.0 / 3.0
+            let deltaAngle = (Float)(translation.x)*(Float)(M_PI)/180.0 / 3.0
             selectedNode.eulerAngles.y = selectedNode.eulerAngles.y + deltaAngle
         }
         
