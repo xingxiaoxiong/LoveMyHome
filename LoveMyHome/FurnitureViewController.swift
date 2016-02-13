@@ -133,6 +133,10 @@ extension FurnitureViewController: UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CellIdentifier, forIndexPath: indexPath) as! FurnitureCell
         cell.thumbnail.image = nil
         
+        if furniture.modelData != nil {
+            cell.downloadButton.hidden = true
+        }
+        
 //        let imageURL = NSURL(string: furniture.thumbnailUrl)
 //        if let imageData = NSData(contentsOfURL: imageURL!) {
 //            
@@ -188,8 +192,13 @@ extension FurnitureViewController: UICollectionViewDelegate, UICollectionViewDat
                 } else {
                     
                     furniture.modelData = data
-                    print(furniture.modelData)
                     
+                    dispatch_async(dispatch_get_main_queue(), {
+                        let CellIdentifier = "FurnitureCell"
+                        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CellIdentifier, forIndexPath: indexPath) as! FurnitureCell
+                        cell.downloadButton.hidden = true
+                        self.collectionView.reloadItemsAtIndexPaths([indexPath])
+                    })
                 }
             })
         }

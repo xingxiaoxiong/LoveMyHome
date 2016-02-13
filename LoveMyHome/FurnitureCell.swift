@@ -11,6 +11,7 @@ import UIKit
 class FurnitureCell: UICollectionViewCell {
     
     @IBOutlet weak var thumbnail: UIImageView!
+    @IBOutlet weak var downloadButton: UIButton!
     
     @IBAction func downloadButtonTapped(sender: UIButton) {
         
