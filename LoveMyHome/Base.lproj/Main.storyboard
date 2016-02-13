@@ -83,17 +83,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="LKn-ic-9dW">
-                        <barButtonItem key="rightBarButtonItem" title="Find Furniture" id="Ypn-sw-psk">
-                            <connections>
-                                <segue destination="weQ-wC-pVV" kind="show" id="9um-Fe-7l1"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Find Furniture" id="Ypn-sw-psk"/>
                     </navigationItem>
                     <connections>
                         <outlet property="completeButton" destination="ekJ-XF-cdi" id="7Ua-H4-dg3"/>
                         <outlet property="rotateButton" destination="6Pf-Rt-0oK" id="98V-hW-oXC"/>
                         <outlet property="sceneView" destination="hY6-eu-Zda" id="tk1-5T-Lht"/>
                         <outlet property="translateButton" destination="3oU-hW-CaA" id="8Rq-NW-kRD"/>
+                        <segue destination="weQ-wC-pVV" kind="show" identifier="ToFurnitureVCSegue" id="ZOq-d2-837"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
