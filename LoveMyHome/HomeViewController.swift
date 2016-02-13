@@ -66,6 +66,16 @@ class HomeViewController: UIViewController {
         completeButton.enabled = false
     }
 
+    @IBAction func findFurnitureTapped(sender: UIBarButtonItem) {
+        
+        let controller =
+        storyboard!.instantiateViewControllerWithIdentifier("FurnitureViewController")
+            as! FurnitureViewController
+        
+        self.navigationController!.pushViewController(controller, animated: true)
+        
+    }
+    
     func sceneSetup () {
         
         // Constructing basic structure

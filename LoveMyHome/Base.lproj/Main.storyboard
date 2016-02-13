@@ -83,7 +83,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="LKn-ic-9dW">
-                        <barButtonItem key="rightBarButtonItem" title="Find Furniture" id="Ypn-sw-psk"/>
+                        <barButtonItem key="rightBarButtonItem" title="Find Furniture" id="Ypn-sw-psk">
+                            <connections>
+                                <action selector="findFurnitureTapped:" destination="BYZ-38-t0r" id="LaJ-EB-OXy"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="completeButton" destination="ekJ-XF-cdi" id="7Ua-H4-dg3"/>
@@ -100,7 +104,7 @@
         <!--Furniture View Controller-->
         <scene sceneID="iHD-5p-G9b">
             <objects>
-                <viewController id="weQ-wC-pVV" customClass="FurnitureViewController" customModule="LoveMyHome" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FurnitureViewController" id="weQ-wC-pVV" customClass="FurnitureViewController" customModule="LoveMyHome" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cin-M9-MQx"/>
                         <viewControllerLayoutGuide type="bottom" id="QY4-DP-zBB"/>
