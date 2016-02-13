@@ -66,6 +66,29 @@ class Parse : NSObject {
         return task
     }
     
+    // MARK: - All purpose task method for NSData
+    func taskForData(filePath: String, completionHandler: (data: NSData?, error: NSError?) ->  Void) -> NSURLSessionTask {
+        
+        let url = NSURL(string: filePath)!
+        
+        let request = NSURLRequest(URL: url)
+        
+        let task = session.dataTaskWithRequest(request) {data, response, downloadError in
+            
+            if let error = downloadError {
+                let newError = Parse.errorForData(data, response: response, error: error)
+                completionHandler(data: nil, error: newError)
+            } else {
+                completionHandler(data: data, error: nil)
+            }
+        }
+        
+        task.resume()
+        
+        return task
+    }
+
+    
     // MARK: - All purpose task method for images
     
     func taskForImage(filePath: String, completionHandler: (imageData: NSData?, error: NSError?) ->  Void) -> NSURLSessionTask {

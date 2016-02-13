@@ -176,8 +176,23 @@ extension FurnitureViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let furniture = furnitureList[indexPath.row]
         
-        guard let modelData = furniture.modelData else {
-            return
+        if furniture.modelData == nil {
+            
+            Parse.sharedInstance().taskForData(furniture.modelUrl, completionHandler: { (data, error) -> Void in
+                
+                if let error = error {
+                    
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.alertViewForError(error)
+                    }
+                } else {
+                    
+                    furniture.modelData = data
+                    print(furniture.modelData)
+                    
+                }
+            })
         }
+        
     }
 }
