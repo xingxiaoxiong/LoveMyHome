@@ -72,6 +72,8 @@ class HomeViewController: UIViewController {
         storyboard!.instantiateViewControllerWithIdentifier("FurnitureViewController")
             as! FurnitureViewController
         
+        controller.delegate = self
+        
         self.navigationController!.pushViewController(controller, animated: true)
         
     }
@@ -116,7 +118,7 @@ class HomeViewController: UIViewController {
         staticGeometry.addChildNode(backNode)
         
         //debugLoadModelFromJSON()
-        debugLoadModelFromDae()
+        //debugLoadModelFromDae()
         
         geometryNode.addChildNode(staticGeometry)
         geometryNode.addChildNode(dynamicGeometry)
@@ -261,3 +263,22 @@ class HomeViewController: UIViewController {
     
 }
 
+extension HomeViewController: FurnitureViewControllerDelegate {
+    
+    func pickFurniture(controller: FurnitureViewController, didPickFurniture modelData: NSData?) {
+        let sceneSource = SCNSceneSource(data: modelData!, options: nil)
+        var modelScene: SCNScene? = nil
+        
+        do {
+            modelScene = try sceneSource?.sceneWithOptions(nil)
+        } catch {
+            return
+        }
+        
+        for child : AnyObject in modelScene!.rootNode.childNodes {
+            let node = child as! SCNNode
+            node.position = SCNVector3Make(0, 0, -2)
+            dynamicGeometry.addChildNode(node)
+        }
+    }
+}

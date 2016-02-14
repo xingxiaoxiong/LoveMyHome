@@ -9,10 +9,15 @@
 import UIKit
 import CoreData
 
+protocol FurnitureViewControllerDelegate {
+    func pickFurniture(controller: FurnitureViewController, didPickFurniture modelData: NSData?)
+}
+
 class FurnitureViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var delegate: FurnitureViewControllerDelegate?
     var furnitureList = [Furniture]()
     
     override func viewDidLoad() {
@@ -134,7 +139,7 @@ extension FurnitureViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.thumbnail.image = nil
         
         if furniture.modelData != nil {
-            cell.downloadButton.hidden = true
+            cell.indicator.text = "Click to Pick"
         }
         
 //        let imageURL = NSURL(string: furniture.thumbnailUrl)
@@ -196,12 +201,15 @@ extension FurnitureViewController: UICollectionViewDelegate, UICollectionViewDat
                     dispatch_async(dispatch_get_main_queue(), {
                         let CellIdentifier = "FurnitureCell"
                         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CellIdentifier, forIndexPath: indexPath) as! FurnitureCell
-                        cell.downloadButton.hidden = true
+                        cell.indicator.text = "Click to Pick"
                         self.collectionView.reloadItemsAtIndexPaths([indexPath])
                     })
                 }
             })
+        } else {
+            self.delegate?.pickFurniture(self, didPickFurniture: furniture.modelData)
+            navigationController?.popViewControllerAnimated(true)
         }
-        
     }
+    
 }

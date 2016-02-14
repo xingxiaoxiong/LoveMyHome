@@ -132,30 +132,26 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="01d-sT-VAk">
                                                     <rect key="frame" x="0.0" y="9" width="176" height="128"/>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nuN-Pf-Uk7">
-                                                    <rect key="frame" x="46" y="99" width="122" height="30"/>
-                                                    <color key="backgroundColor" red="0.41897603871336309" green="0.61888844695495371" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <state key="normal" title="Click to download">
-                                                        <color key="titleShadowColor" red="0.44333416479999999" green="0.48325441949999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="downloadButtonTapped:" destination="5Xj-Mh-VzH" eventType="touchUpInside" id="X4H-JP-B85"/>
-                                                    </connections>
-                                                </button>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Click to Download" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eqQ-tp-Rj9">
+                                                    <rect key="frame" x="47" y="112" width="121" height="17"/>
+                                                    <color key="backgroundColor" red="0.44333416479999999" green="0.48325441949999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <constraints>
                                             <constraint firstItem="01d-sT-VAk" firstAttribute="leading" secondItem="5Xj-Mh-VzH" secondAttribute="leadingMargin" constant="-8" id="4cM-hb-fBy"/>
-                                            <constraint firstItem="nuN-Pf-Uk7" firstAttribute="trailing" secondItem="5Xj-Mh-VzH" secondAttribute="trailingMargin" id="4sv-wi-5vi"/>
-                                            <constraint firstItem="nuN-Pf-Uk7" firstAttribute="bottom" secondItem="5Xj-Mh-VzH" secondAttribute="bottomMargin" id="76P-GO-P6f"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="eqQ-tp-Rj9" secondAttribute="bottom" id="CJH-vF-9fV"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="01d-sT-VAk" secondAttribute="trailing" constant="-8" id="PEa-Vk-Qga"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="eqQ-tp-Rj9" secondAttribute="trailing" id="p3l-fC-91E"/>
                                             <constraint firstItem="01d-sT-VAk" firstAttribute="top" secondItem="5Xj-Mh-VzH" secondAttribute="topMargin" constant="1" id="q2o-eR-RNL"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="01d-sT-VAk" secondAttribute="bottom" constant="-8" id="rNg-6v-ZyT"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="downloadButton" destination="nuN-Pf-Uk7" id="21u-SL-WIT"/>
+                                            <outlet property="indicator" destination="eqQ-tp-Rj9" id="Vq9-eZ-AfT"/>
                                             <outlet property="thumbnail" destination="01d-sT-VAk" id="fKo-Yt-pyL"/>
                                         </connections>
                                     </collectionViewCell>
