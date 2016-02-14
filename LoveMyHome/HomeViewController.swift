@@ -144,12 +144,23 @@ class HomeViewController: UIViewController {
         
         let panRecognizer = UIPanGestureRecognizer(target: self, action: "panGesture:")
         let tapGesture = UITapGestureRecognizer(target: self, action: "handleTap:")
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: "handlePinch:")
         
         sceneView.addGestureRecognizer(panRecognizer)
         sceneView.addGestureRecognizer(tapGesture)
+        sceneView.addGestureRecognizer(pinchGesture)
         
         sceneView.scene = scene
         //sceneView.allowsCameraControl = true
+    }
+    
+    func handlePinch(sender: UIPinchGestureRecognizer) {
+        switch state {
+        case .Translate:
+            selectedNode.position.y = selectedNode.position.y + Float(sender.scale) / 100.0
+        default:
+            return
+        }
     }
     
     func panGesture(sender: UIPanGestureRecognizer) {
@@ -277,7 +288,8 @@ extension HomeViewController: FurnitureViewControllerDelegate {
         
         for child : AnyObject in modelScene!.rootNode.childNodes {
             let node = child as! SCNNode
-            node.position = SCNVector3Make(0, 0, -2)
+            node.position = SCNVector3Make(0, 0, 0)
+            selectedNode = node
             dynamicGeometry.addChildNode(node)
         }
     }
