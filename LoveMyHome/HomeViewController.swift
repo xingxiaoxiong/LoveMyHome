@@ -66,13 +66,11 @@ class HomeViewController: UIViewController {
     @IBAction func completeButtonTapped(sender: UIButton) {
         state = .Normal
         disableAllButtons()
-        saveDesign()
     }
 
     @IBAction func deleteButtonTapped(sender: UIButton) {
         selectedNode.removeFromParentNode()
         disableAllButtons()
-        saveDesign()
     }
     
     @IBAction func findFurnitureTapped(sender: UIBarButtonItem) {
@@ -91,8 +89,11 @@ class HomeViewController: UIViewController {
         for node in dynamicGeometry.childNodes {
             node.removeFromParentNode()
         }
-        saveDesign()
         disableAllButtons()
+    }
+    
+    @IBAction func SaveButtonTapped(sender: UIButton) {
+        saveDesign()
     }
     
     func disableAllButtons() {

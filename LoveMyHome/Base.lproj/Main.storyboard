@@ -28,10 +28,17 @@
                                         <rect key="frame" x="0.0" y="0.0" width="187" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8N-N1-EEe">
-                                                <rect key="frame" x="0.0" y="0.0" width="187" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="94" height="30"/>
                                                 <state key="normal" title="Clear All"/>
                                                 <connections>
                                                     <action selector="clearSceneButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d60-HS-PzM"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KGh-3r-FAh">
+                                                <rect key="frame" x="94" y="0.0" width="93" height="30"/>
+                                                <state key="normal" title="Save"/>
+                                                <connections>
+                                                    <action selector="SaveButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8c1-K5-z1Y"/>
                                                 </connections>
                                             </button>
                                         </subviews>
