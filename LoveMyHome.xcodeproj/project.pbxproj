@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		513EC0FE1C79F59000A28E98 /* NodeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513EC0FD1C79F59000A28E98 /* NodeInfo.swift */; };
 		51A09A571C64681C001FC723 /* FurnitureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A09A561C64681C001FC723 /* FurnitureViewController.swift */; };
 		51A09A5A1C6468DA001FC723 /* FurnitureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A09A591C6468DA001FC723 /* FurnitureCell.swift */; };
 		51A09A5D1C646C44001FC723 /* Parse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A09A5C1C646C44001FC723 /* Parse.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		513EC0FD1C79F59000A28E98 /* NodeInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeInfo.swift; sourceTree = "<group>"; };
 		51A09A561C64681C001FC723 /* FurnitureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FurnitureViewController.swift; sourceTree = "<group>"; };
 		51A09A591C6468DA001FC723 /* FurnitureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FurnitureCell.swift; sourceTree = "<group>"; };
 		51A09A5C1C646C44001FC723 /* Parse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parse.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 		51E71D4D1C62F93400694A22 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				513EC0FD1C79F59000A28E98 /* NodeInfo.swift */,
 				51A09A661C648B53001FC723 /* Furniture.swift */,
 				51A09A641C648A49001FC723 /* CoreDataStackManager.swift */,
 				51A09A5E1C646CC6001FC723 /* ImageCache.swift */,
@@ -210,6 +213,7 @@
 				51A09A711C6496B1001FC723 /* Model.xcdatamodeld in Sources */,
 				51A09A651C648A49001FC723 /* CoreDataStackManager.swift in Sources */,
 				51A09A5F1C646CC6001FC723 /* ImageCache.swift in Sources */,
+				513EC0FE1C79F59000A28E98 /* NodeInfo.swift in Sources */,
 				51E71D3B1C62E31C00694A22 /* HomeViewController.swift in Sources */,
 				51E71D391C62E31C00694A22 /* AppDelegate.swift in Sources */,
 				51A09A631C64830E001FC723 /* ParseConvenience.swift in Sources */,

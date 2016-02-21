@@ -33,17 +33,22 @@ class HomeViewController: UIViewController {
     // camera
     var currentAngle: Float = 0.0
     
+    var myDesign = [NodeInfo]()
+    
+    var designFilePath : String {
+        let manager = NSFileManager.defaultManager()
+        let url = manager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+        return url.URLByAppendingPathComponent("myDesign").path!
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        myDesign = NSKeyedUnarchiver.unarchiveObjectWithFile(designFilePath) as? [NodeInfo] ?? [NodeInfo]()
         
         sceneSetup()
         
         disableAllButtons()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func translateButtonTapped(sender: UIButton) {
@@ -61,11 +66,13 @@ class HomeViewController: UIViewController {
     @IBAction func completeButtonTapped(sender: UIButton) {
         state = .Normal
         disableAllButtons()
+        saveDesign()
     }
 
     @IBAction func deleteButtonTapped(sender: UIButton) {
         selectedNode.removeFromParentNode()
         disableAllButtons()
+        saveDesign()
     }
     
     @IBAction func findFurnitureTapped(sender: UIBarButtonItem) {
@@ -84,6 +91,7 @@ class HomeViewController: UIViewController {
         for node in dynamicGeometry.childNodes {
             node.removeFromParentNode()
         }
+        saveDesign()
         disableAllButtons()
     }
     
@@ -92,6 +100,14 @@ class HomeViewController: UIViewController {
         rotateButton.enabled = false
         completeButton.enabled = false
         deleteButton.enabled = false
+    }
+    
+    func saveDesign() {
+        self.myDesign = [NodeInfo]()
+        for node in dynamicGeometry.childNodes {
+            myDesign.append(NodeInfo(_node: node))
+        }
+        NSKeyedArchiver.archiveRootObject(self.myDesign, toFile: designFilePath)
     }
     
     func sceneSetup () {
@@ -157,6 +173,10 @@ class HomeViewController: UIViewController {
         camera.camera = SCNCamera()
         camera.position = SCNVector3Make(0, 1.6, 3)
         scene.rootNode.addChildNode(camera)
+        
+        for nodeInfo in myDesign {
+            dynamicGeometry.addChildNode(nodeInfo.node)
+        }
         
         let panRecognizer = UIPanGestureRecognizer(target: self, action: "panGesture:")
         let tapGesture = UITapGestureRecognizer(target: self, action: "handleTap:")
