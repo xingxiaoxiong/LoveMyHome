@@ -37,6 +37,7 @@ class FurnitureViewController: UIViewController {
     }
     
     func downloadThumbnails() {
+        
         activityIndicatorStart()
         
         Parse.sharedInstance().getThumbnailUrls { (parsedResult, error) -> Void in
@@ -153,9 +154,6 @@ extension FurnitureViewController: UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CellIdentifier, forIndexPath: indexPath) as! FurnitureCell
         cell.thumbnail.image = nil
         
-        if furniture.modelData != nil {
-            cell.indicator.text = "Click to Pick"
-        }
         
 //        let imageURL = NSURL(string: furniture.thumbnailUrl)
 //        if let imageData = NSData(contentsOfURL: imageURL!) {
@@ -171,6 +169,15 @@ extension FurnitureViewController: UICollectionViewDelegate, UICollectionViewDat
         
         if furniture.thumbnail != nil {
             thumbnail = furniture.thumbnail
+            
+            if furniture.modelData != nil {
+                cell.indicator.backgroundColor = UIColor.blueColor()
+                cell.indicator.text = "Tap to Pick"
+            } else {
+                cell.indicator.backgroundColor = UIColor.redColor()
+                cell.indicator.text = "Tap to download"
+            }
+
         } else {
             
             Parse.sharedInstance().taskForImage(furniture.thumbnailUrl, completionHandler: { (imageData, error) -> Void in
@@ -185,6 +192,9 @@ extension FurnitureViewController: UICollectionViewDelegate, UICollectionViewDat
                         thumbnail = UIImage(data: imageData!)
                         cell.thumbnail.image = thumbnail
                         furniture.thumbnail = thumbnail
+                        cell.indicator.backgroundColor = UIColor.redColor()
+                        cell.indicator.text = "Tap to download"
+                        self.collectionView.reloadItemsAtIndexPaths([indexPath])
                         self.saveContext()
                         
                         self.activityIndicatorStop()
@@ -206,9 +216,12 @@ extension FurnitureViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let furniture = furnitureList[indexPath.row]
+        let CellIdentifier = "FurnitureCell"
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CellIdentifier, forIndexPath: indexPath) as! FurnitureCell
         
         if furniture.modelData == nil {
             
+            cell.indicator.text = "downloading"
             activityIndicatorStart()
             
             Parse.sharedInstance().taskForData(furniture.modelUrl, completionHandler: { (data, error) -> Void in
@@ -223,9 +236,9 @@ extension FurnitureViewController: UICollectionViewDelegate, UICollectionViewDat
                     furniture.modelData = data
                     
                     dispatch_async(dispatch_get_main_queue(), {
-                        let CellIdentifier = "FurnitureCell"
-                        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CellIdentifier, forIndexPath: indexPath) as! FurnitureCell
-                        cell.indicator.text = "Click to Pick"
+                        
+                        cell.indicator.text = "Tap to Pick"
+                        cell.indicator.backgroundColor = UIColor.blueColor()
                         self.collectionView.reloadItemsAtIndexPaths([indexPath])
                         
                         self.activityIndicatorStop()

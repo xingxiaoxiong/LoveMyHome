@@ -11,6 +11,6 @@ import UIKit
 class FurnitureCell: UICollectionViewCell {
     
     @IBOutlet weak var thumbnail: UIImageView!
-    @IBOutlet weak var indicator: UITextField!
+    @IBOutlet weak var indicator: UILabel!
 
 }
