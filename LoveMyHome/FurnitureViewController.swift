@@ -30,7 +30,6 @@ class FurnitureViewController: UIViewController {
         super.viewWillAppear(animated)
         
         activityIndicator.hidden = true
-        activityIndicatorStart()
         
         if furnitureList.count == 0 {
             downloadThumbnails()
@@ -73,7 +72,6 @@ class FurnitureViewController: UIViewController {
                         
                         self.collectionView.reloadData()
                         self.saveContext()
-                        self.activityIndicatorStop()
                     }
                 }
             }
@@ -175,17 +173,24 @@ extension FurnitureViewController: UICollectionViewDelegate, UICollectionViewDat
             thumbnail = furniture.thumbnail
         } else {
             
-            let imageURL = NSURL(string: furniture.thumbnailUrl)
-            if let imageData = NSData(contentsOfURL: imageURL!) {
+            Parse.sharedInstance().taskForImage(furniture.thumbnailUrl, completionHandler: { (imageData, error) -> Void in
                 
-                dispatch_async(dispatch_get_main_queue(), {
-                    
-                    thumbnail = UIImage(data: imageData)
-                    cell.thumbnail.image = thumbnail
-                    furniture.thumbnail = thumbnail
-                    self.saveContext()
-                })
-            }
+                if let error = error {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.alertViewForError(error)
+                    }
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        
+                        thumbnail = UIImage(data: imageData!)
+                        cell.thumbnail.image = thumbnail
+                        furniture.thumbnail = thumbnail
+                        self.saveContext()
+                        
+                        self.activityIndicatorStop()
+                    })
+                }
+            })
             
         }
         
