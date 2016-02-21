@@ -38,10 +38,7 @@ class HomeViewController: UIViewController {
         
         sceneSetup()
         
-        translateButton.enabled = false
-        rotateButton.enabled = false
-        completeButton.enabled = false
-        deleteButton.enabled = false
+        disableAllButtons()
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,12 +60,14 @@ class HomeViewController: UIViewController {
     
     @IBAction func completeButtonTapped(sender: UIButton) {
         state = .Normal
-        rotateButton.enabled = false
-        translateButton.enabled = false
-        completeButton.enabled = false
-        deleteButton.enabled = false
+        disableAllButtons()
     }
 
+    @IBAction func deleteButtonTapped(sender: UIButton) {
+        selectedNode.removeFromParentNode()
+        disableAllButtons()
+    }
+    
     @IBAction func findFurnitureTapped(sender: UIBarButtonItem) {
         
         let controller =
@@ -79,6 +78,13 @@ class HomeViewController: UIViewController {
         
         self.navigationController!.pushViewController(controller, animated: true)
         
+    }
+    
+    func disableAllButtons() {
+        translateButton.enabled = false
+        rotateButton.enabled = false
+        completeButton.enabled = false
+        deleteButton.enabled = false
     }
     
     func sceneSetup () {

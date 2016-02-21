@@ -25,25 +25,24 @@
                                 <rect key="frame" x="20" y="562" width="560" height="30"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="lYN-9w-XPn">
-                                        <rect key="frame" x="0.0" y="0.0" width="186.5" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="187" height="30"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tLf-kg-5XB">
-                                                <rect key="frame" x="0.0" y="0.0" width="93.5" height="30"/>
-                                                <state key="normal" title="Load Design"/>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8N-N1-EEe">
-                                                <rect key="frame" x="93" y="0.0" width="93" height="30"/>
-                                                <state key="normal" title="Save Design"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="187" height="30"/>
+                                                <state key="normal" title="Clear All"/>
                                             </button>
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OmO-19-etq">
-                                        <rect key="frame" x="186" y="0.0" width="187" height="30"/>
+                                        <rect key="frame" x="187" y="0.0" width="187" height="30"/>
                                         <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Delete"/>
+                                        <connections>
+                                            <action selector="deleteButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Y86-99-AGX"/>
+                                        </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="d0f-LK-8Rj">
-                                        <rect key="frame" x="373" y="0.0" width="186.5" height="30"/>
+                                        <rect key="frame" x="374" y="0.0" width="187" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3oU-hW-CaA">
                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="30"/>
@@ -60,7 +59,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ekJ-XF-cdi">
-                                                <rect key="frame" x="119" y="0.0" width="67" height="30"/>
+                                                <rect key="frame" x="120" y="0.0" width="67" height="30"/>
                                                 <state key="normal" title="Complete"/>
                                                 <connections>
                                                     <action selector="completeButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b3f-yt-L8F"/>
@@ -123,9 +122,10 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="tqN-KW-uhf">
+                                <activityIndicatorView key="backgroundView" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="tqN-KW-uhf">
                                     <rect key="frame" x="0.0" y="-64" width="600" height="536"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.98325616882670042" green="0.9202394719871011" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </activityIndicatorView>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="center" reuseIdentifier="FurnitureCell" id="5Xj-Mh-VzH" customClass="FurnitureCell" customModule="LoveMyHome" customModuleProvider="target">
