@@ -80,6 +80,13 @@ class HomeViewController: UIViewController {
         
     }
     
+    @IBAction func clearSceneButtonTapped(sender: UIButton) {
+        for node in dynamicGeometry.childNodes {
+            node.removeFromParentNode()
+        }
+        disableAllButtons()
+    }
+    
     func disableAllButtons() {
         translateButton.enabled = false
         rotateButton.enabled = false
