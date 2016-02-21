@@ -40,9 +40,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OmO-19-etq">
                                         <rect key="frame" x="186" y="0.0" width="187" height="30"/>
                                         <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Delete">
-                                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
+                                        <state key="normal" title="Delete"/>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="d0f-LK-8Rj">
                                         <rect key="frame" x="373" y="0.0" width="186.5" height="30"/>
@@ -94,6 +92,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="completeButton" destination="ekJ-XF-cdi" id="7Ua-H4-dg3"/>
+                        <outlet property="deleteButton" destination="OmO-19-etq" id="tuf-w2-Q0b"/>
                         <outlet property="rotateButton" destination="6Pf-Rt-0oK" id="98V-hW-oXC"/>
                         <outlet property="sceneView" destination="hY6-eu-Zda" id="tk1-5T-Lht"/>
                         <outlet property="translateButton" destination="3oU-hW-CaA" id="8Rq-NW-kRD"/>
@@ -116,6 +115,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="tqN-KW-uhf">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.071741149341799648" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="color" red="0.44333416479999999" green="0.48325441949999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Mq2-mD-2W2">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QDe-tp-dGN">
@@ -126,7 +130,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="center" reuseIdentifier="FurnitureCell" id="5Xj-Mh-VzH" customClass="FurnitureCell" customModule="LoveMyHome" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="64" width="176" height="137"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="176" height="137"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="176" height="137"/>
@@ -168,12 +172,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="QY4-DP-zBB" firstAttribute="top" secondItem="Mq2-mD-2W2" secondAttribute="bottom" id="7cN-zg-DGv"/>
+                            <constraint firstItem="tqN-KW-uhf" firstAttribute="centerY" secondItem="awk-iV-0nk" secondAttribute="centerY" id="83g-rw-hho"/>
                             <constraint firstItem="Mq2-mD-2W2" firstAttribute="leading" secondItem="awk-iV-0nk" secondAttribute="leadingMargin" constant="-20" id="8qM-0G-3J0"/>
+                            <constraint firstItem="tqN-KW-uhf" firstAttribute="centerX" secondItem="awk-iV-0nk" secondAttribute="centerX" id="N9K-I2-AqW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Mq2-mD-2W2" secondAttribute="trailing" constant="-20" id="m6K-ni-Om2"/>
                             <constraint firstItem="Mq2-mD-2W2" firstAttribute="top" secondItem="cin-M9-MQx" secondAttribute="bottom" id="yqF-Ou-Qxl"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="tqN-KW-uhf" id="WDR-es-vHR"/>
                         <outlet property="collectionView" destination="Mq2-mD-2W2" id="4cA-gn-RAg"/>
                     </connections>
                 </viewController>

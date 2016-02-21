@@ -16,6 +16,7 @@ protocol FurnitureViewControllerDelegate {
 class FurnitureViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var delegate: FurnitureViewControllerDelegate?
     var furnitureList = [Furniture]()
@@ -28,12 +29,17 @@ class FurnitureViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        activityIndicator.hidden = true
+        activityIndicatorStart()
+        
         if furnitureList.count == 0 {
             downloadThumbnails()
         }
     }
     
     func downloadThumbnails() {
+        activityIndicatorStart()
+        
         Parse.sharedInstance().getThumbnailUrls { (parsedResult, error) -> Void in
             
             if let error = error {
@@ -67,6 +73,7 @@ class FurnitureViewController: UIViewController {
                         
                         self.collectionView.reloadData()
                         self.saveContext()
+                        self.activityIndicatorStop()
                     }
                 }
             }
@@ -86,6 +93,16 @@ class FurnitureViewController: UIViewController {
         } else {
             return url
         }
+    }
+    
+    func activityIndicatorStart() {
+        activityIndicator.hidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    func activityIndicatorStop() {
+        self.activityIndicator.hidden = true
+        self.activityIndicator.stopAnimating()
     }
     
     // MARK: - Core Data Convenience
@@ -187,6 +204,8 @@ extension FurnitureViewController: UICollectionViewDelegate, UICollectionViewDat
         
         if furniture.modelData == nil {
             
+            activityIndicatorStart()
+            
             Parse.sharedInstance().taskForData(furniture.modelUrl, completionHandler: { (data, error) -> Void in
                 
                 if let error = error {
@@ -203,6 +222,8 @@ extension FurnitureViewController: UICollectionViewDelegate, UICollectionViewDat
                         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CellIdentifier, forIndexPath: indexPath) as! FurnitureCell
                         cell.indicator.text = "Click to Pick"
                         self.collectionView.reloadItemsAtIndexPaths([indexPath])
+                        
+                        self.activityIndicatorStop()
                     })
                 }
             })

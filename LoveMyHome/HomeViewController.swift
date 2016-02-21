@@ -20,6 +20,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var translateButton: UIButton!
     @IBOutlet weak var rotateButton: UIButton!
     @IBOutlet weak var completeButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
     
     var scene: SCNScene = SCNScene()
     var camera: SCNNode = SCNNode()
@@ -40,6 +41,7 @@ class HomeViewController: UIViewController {
         translateButton.enabled = false
         rotateButton.enabled = false
         completeButton.enabled = false
+        deleteButton.enabled = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,6 +66,7 @@ class HomeViewController: UIViewController {
         rotateButton.enabled = false
         translateButton.enabled = false
         completeButton.enabled = false
+        deleteButton.enabled = false
     }
 
     @IBAction func findFurnitureTapped(sender: UIBarButtonItem) {
@@ -157,7 +160,7 @@ class HomeViewController: UIViewController {
     func handlePinch(sender: UIPinchGestureRecognizer) {
         switch state {
         case .Translate:
-            selectedNode.position.y = selectedNode.position.y + Float(sender.scale) / 100.0
+            selectedNode.position.y = selectedNode.position.y + Float(sender.scale) / 20.0
         default:
             return
         }
@@ -202,10 +205,7 @@ class HomeViewController: UIViewController {
                 //node.geometry?.firstMaterial?.diffuse.contents = UIColor.darkGrayColor()
                 //TransformWidget(node: node)
                 state = .Translate
-                rotateButton.enabled = true
-                completeButton.enabled = true
-                
-                selectedNode = node
+                selectNode(node)
             }
         }
     }
@@ -272,6 +272,15 @@ class HomeViewController: UIViewController {
 
     }
     
+    func selectNode(node: SCNNode) {
+        selectedNode = node
+        
+        translateButton.enabled = false
+        deleteButton.enabled = true
+        rotateButton.enabled = true
+        completeButton.enabled = true
+    }
+    
 }
 
 extension HomeViewController: FurnitureViewControllerDelegate {
@@ -289,7 +298,8 @@ extension HomeViewController: FurnitureViewControllerDelegate {
         for child : AnyObject in modelScene!.rootNode.childNodes {
             let node = child as! SCNNode
             node.position = SCNVector3Make(0, 0, 0)
-            selectedNode = node
+            state = .Translate
+            selectNode(node)
             dynamicGeometry.addChildNode(node)
         }
     }
