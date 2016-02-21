@@ -148,8 +148,8 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="01d-sT-VAk">
                                                     <rect key="frame" x="0.0" y="9" width="176" height="128"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="downloading" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L1I-bb-QZ9">
-                                                    <rect key="frame" x="56" y="108" width="98" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="downloading" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L1I-bb-QZ9">
+                                                    <rect key="frame" x="70" y="108.5" width="98" height="20.5"/>
                                                     <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -181,12 +181,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="QY4-DP-zBB" firstAttribute="top" secondItem="Mq2-mD-2W2" secondAttribute="bottom" id="7cN-zg-DGv"/>
+                            <constraint firstItem="QY4-DP-zBB" firstAttribute="top" secondItem="Mq2-mD-2W2" secondAttribute="bottom" constant="-44" id="7cN-zg-DGv"/>
                             <constraint firstItem="Mq2-mD-2W2" firstAttribute="leading" secondItem="awk-iV-0nk" secondAttribute="leadingMargin" constant="-20" id="8qM-0G-3J0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Mq2-mD-2W2" secondAttribute="trailing" constant="-20" id="m6K-ni-Om2"/>
                             <constraint firstItem="Mq2-mD-2W2" firstAttribute="top" secondItem="cin-M9-MQx" secondAttribute="bottom" id="yqF-Ou-Qxl"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="tqN-KW-uhf" id="WDR-es-vHR"/>
                         <outlet property="collectionView" destination="Mq2-mD-2W2" id="4cA-gn-RAg"/>

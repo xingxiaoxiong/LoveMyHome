@@ -24,6 +24,10 @@ class FurnitureViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         furnitureList = fetchAllFurniture()
+        
+        var right : UIBarButtonItem = UIBarButtonItem(title: "Refresh", style: UIBarButtonItemStyle.Plain, target: self, action: "downloadThumbnails")
+        
+        self.navigationItem.rightBarButtonItem = right
     }
     
     override func viewWillAppear(animated: Bool) {
