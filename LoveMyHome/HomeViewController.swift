@@ -194,7 +194,7 @@ class HomeViewController: UIViewController {
     func handlePinch(sender: UIPinchGestureRecognizer) {
         switch state {
         case .Translate:
-            selectedNode.position.y = selectedNode.position.y + Float(sender.scale) / 20.0
+            selectedNode.position.y = selectedNode.position.y + Float(sender.scale) / 20.0 * Float(sender.velocity)
         default:
             return
         }
