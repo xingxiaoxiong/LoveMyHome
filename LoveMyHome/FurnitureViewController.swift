@@ -41,6 +41,13 @@ class FurnitureViewController: UIViewController {
     }
     
     func downloadThumbnails() {
+        for furniture in furnitureList {
+            furniture.thumbnail = nil
+            furniture.modelData = nil
+            sharedContext.deleteObject(furniture)
+        }
+        furnitureList = [Furniture]()
+        CoreDataStackManager.sharedInstance().saveContext()
         
         activityIndicatorStart()
         
