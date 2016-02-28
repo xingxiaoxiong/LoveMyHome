@@ -136,6 +136,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r67-hK-jNT">
                                 <rect key="frame" x="486" y="180" width="30" height="30"/>
                                 <state key="normal" title="Set"/>
+                                <connections>
+                                    <action selector="setRoomSizeButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2yU-ca-rIS"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Width" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A29-qB-FWR">
                                 <rect key="frame" x="432" y="101" width="46" height="21"/>
@@ -182,6 +185,8 @@
                     <connections>
                         <outlet property="completeButton" destination="ekJ-XF-cdi" id="7Ua-H4-dg3"/>
                         <outlet property="deleteButton" destination="OmO-19-etq" id="tuf-w2-Q0b"/>
+                        <outlet property="roomLengthTextField" destination="aop-ac-k1X" id="bAM-2d-crR"/>
+                        <outlet property="roomWidthTextField" destination="IT4-1g-ZnL" id="pbn-Oc-Cgg"/>
                         <outlet property="rotateButton" destination="6Pf-Rt-0oK" id="98V-hW-oXC"/>
                         <outlet property="sceneView" destination="hY6-eu-Zda" id="tk1-5T-Lht"/>
                         <outlet property="translateButton" destination="3oU-hW-CaA" id="8Rq-NW-kRD"/>
