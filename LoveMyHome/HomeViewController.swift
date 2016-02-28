@@ -24,14 +24,16 @@ class HomeViewController: UIViewController {
     
     var scene: SCNScene = SCNScene()
     var camera: SCNNode = SCNNode()
+    var cameraOrbit: SCNNode = SCNNode()
     var geometryNode: SCNNode = SCNNode()
     var staticGeometry: SCNNode = SCNNode()
     var dynamicGeometry: SCNNode = SCNNode()
     
     var state: State = .Normal
     var selectedNode: SCNNode = SCNNode()
-    // camera
-    var currentAngle: Float = 0.0
+    // view
+    var cameraXRot: Float = 0.0
+    var geoZRot: Float = 0.0
     
     var myDesign = [NodeInfo]()
     
@@ -132,11 +134,11 @@ class HomeViewController: UIViewController {
         floorNode.position = SCNVector3Make(0, -Float(Constants.WallThickness) / 2.0, 0)
         staticGeometry.addChildNode(floorNode)
 
-        let ceilingGeometry = SCNBox(width: Constants.RoomXLength, height: Constants.WallThickness, length: Constants.RoomZLength, chamferRadius: 0.0)
-        ceilingGeometry.firstMaterial!.diffuse.contents = UIColor.lightGrayColor()
-        let ceilingNode = SCNNode(geometry: ceilingGeometry)
-        ceilingNode.position = SCNVector3Make(0, Float(Constants.RoomYLength), 0)
-        staticGeometry.addChildNode(ceilingNode)
+//        let ceilingGeometry = SCNBox(width: Constants.RoomXLength, height: Constants.WallThickness, length: Constants.RoomZLength, chamferRadius: 0.0)
+//        ceilingGeometry.firstMaterial!.diffuse.contents = UIColor.lightGrayColor()
+//        let ceilingNode = SCNNode(geometry: ceilingGeometry)
+//        ceilingNode.position = SCNVector3Make(0, Float(Constants.RoomYLength), 0)
+//        staticGeometry.addChildNode(ceilingNode)
         
         let frontGeometry = SCNBox(width: Constants.RoomXLength, height: Constants.RoomYLength, length: Constants.WallThickness, chamferRadius: 0.0)
         frontGeometry.firstMaterial!.diffuse.contents = UIColor.lightGrayColor()
@@ -157,23 +159,32 @@ class HomeViewController: UIViewController {
         geometryNode.addChildNode(dynamicGeometry)
         scene.rootNode.addChildNode(geometryNode)
         
-        let pointLightNode = SCNNode()
-        pointLightNode.light = SCNLight()
-        pointLightNode.light!.type = SCNLightTypeOmni
-        pointLightNode.light!.color = UIColor(red: 1.0, green: 0.839, blue: 0.667, alpha: 1.0)
-        pointLightNode.position = SCNVector3Make(0, Float(Constants.RoomYLength) / 2.0, -Float(Constants.RoomZLength) / 2.0 + 2.0 * Float(Constants.WallThickness))
-        scene.rootNode.addChildNode(pointLightNode)
-        
-        let pointLightNode2 = SCNNode()
-        pointLightNode2.light = SCNLight()
-        pointLightNode2.light!.type = SCNLightTypeOmni
-        pointLightNode2.light!.color = UIColor(red: 1.0, green: 0.945, blue: 0.878, alpha: 1.0)
-        pointLightNode2.position = SCNVector3Make(Float(Constants.RoomXLength) / 2.0 - 2.0 * Float(Constants.WallThickness), Float(Constants.RoomYLength) / 2.0, Float(Constants.RoomZLength) / 2.0 - 2.0 * Float(Constants.WallThickness))
-        scene.rootNode.addChildNode(pointLightNode2)
+//        let pointLightNode = SCNNode()
+//        pointLightNode.light = SCNLight()
+//        pointLightNode.light!.type = SCNLightTypeOmni
+//        pointLightNode.light!.color = UIColor(red: 1.0, green: 0.839, blue: 0.667, alpha: 1.0)
+//        pointLightNode.position = SCNVector3Make(0, Float(Constants.RoomYLength) / 2.0, -Float(Constants.RoomZLength) / 2.0 + 2.0 * Float(Constants.WallThickness))
+//        scene.rootNode.addChildNode(pointLightNode)
+//        
+//        let pointLightNode2 = SCNNode()
+//        pointLightNode2.light = SCNLight()
+//        pointLightNode2.light!.type = SCNLightTypeOmni
+//        pointLightNode2.light!.color = UIColor(red: 1.0, green: 0.945, blue: 0.878, alpha: 1.0)
+//        pointLightNode2.position = SCNVector3Make(Float(Constants.RoomXLength) / 2.0 - 2.0 * Float(Constants.WallThickness), Float(Constants.RoomYLength) / 2.0, Float(Constants.RoomZLength) / 2.0 - 2.0 * Float(Constants.WallThickness))
+//        scene.rootNode.addChildNode(pointLightNode2)
         
         camera.camera = SCNCamera()
-        camera.position = SCNVector3Make(0, 1.6, 3)
-        scene.rootNode.addChildNode(camera)
+        camera.camera!.usesOrthographicProjection = true
+        camera.camera!.orthographicScale = 8
+        camera.camera!.zNear = 0;
+        camera.camera!.zFar = 200;
+        camera.position = SCNVector3Make(0, 0, 50)
+        cameraOrbit.addChildNode(camera)
+        scene.rootNode.addChildNode(cameraOrbit)
+        
+//        let targetNode = SCNLookAtConstraint(target: geometryNode);
+//        targetNode.gimbalLockEnabled = false;
+//        camera.constraints = [targetNode];
         
         for nodeInfo in myDesign {
             dynamicGeometry.addChildNode(nodeInfo.node)
@@ -187,6 +198,7 @@ class HomeViewController: UIViewController {
         sceneView.addGestureRecognizer(tapGesture)
         sceneView.addGestureRecognizer(pinchGesture)
         
+        sceneView.autoenablesDefaultLighting = true
         sceneView.scene = scene
         //sceneView.allowsCameraControl = true
     }
@@ -208,14 +220,35 @@ class HomeViewController: UIViewController {
         
         switch state {
         case .Normal:
-            var newAngle = (Float)(translation.x)*(Float)(M_PI)/180.0
-            newAngle += currentAngle
+            // Rotate camera around global X axis
+            var newCameraXRot = cameraXRot
+            newCameraXRot -= (Float)(translation.y)*(Float)(M_PI)/180.0
+            if newCameraXRot > 0 {
+                newCameraXRot = 0
+            } else if newCameraXRot < -(Float)(M_PI_2) {
+                newCameraXRot = -(Float)(M_PI_2)
+            }
+            cameraOrbit.rotation = SCNVector4Make(1, 0, 0, newCameraXRot)
             
-            camera.eulerAngles.y = newAngle
+            // Rotate geometryNode arount its Y axis
+            var newGeoZRot = geoZRot
+            newGeoZRot -= (Float)(translation.x)*(Float)(M_PI)/180.0
+            geometryNode.rotation = SCNVector4Make(0, 1, 0, newGeoZRot)
             
             if(sender.state == UIGestureRecognizerState.Ended) {
-                currentAngle = newAngle
+                cameraXRot = newCameraXRot
+                geoZRot = newGeoZRot
             }
+            //geometryNode.eulerAngles.x -= (Float)(translation.y)*(Float)(M_PI)/180.0 / 3.0
+            //geometryNode.eulerAngles.y -= (Float)(translation.x)*(Float)(M_PI)/180.0 / 3.0
+//            var newCameraXRot = (Float)(translation.x)*(Float)(M_PI)/180.0
+//            newCameraXRot += cameraXRot
+//            
+//            camera.eulerAngles.y = newCameraXRot
+//            
+//            if(sender.state == UIGestureRecognizerState.Ended) {
+//                cameraXRot = newCameraXRot
+//            }
         case .Translate:
             let deltaX = (Float)(translation.x) / 1000.0
             let deltaZ = (Float)(translation.y) / 1000.0
