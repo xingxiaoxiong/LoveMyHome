@@ -210,6 +210,7 @@ class HomeViewController: UIViewController {
         let floorGeometry = SCNBox(width: x, height: Constants.WallThickness, length: z, chamferRadius: 0.0)
         floorGeometry.firstMaterial!.diffuse.contents = UIColor.lightGrayColor()
         floorNode.geometry = floorGeometry
+        floorNode.physicsBody = SCNPhysicsBody.staticBody()
         floorNode.position = SCNVector3Make(0, -Float(Constants.WallThickness) / 2.0, 0)
         
         let frontGeometry = SCNBox(width: x, height: Constants.RoomYLength, length: Constants.WallThickness, chamferRadius: 0.0)
