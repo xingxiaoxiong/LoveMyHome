@@ -21,6 +21,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var rotateButton: UIButton!
     @IBOutlet weak var completeButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var zoomInButton: UIButton!
+    @IBOutlet weak var zoomOutButton: UIButton!
     
     var scene: SCNScene = SCNScene()
     var camera: SCNNode = SCNNode()
@@ -97,6 +99,24 @@ class HomeViewController: UIViewController {
     
     @IBAction func SaveButtonTapped(sender: UIButton) {
         saveDesign()
+    }
+    
+    @IBAction func zoomInButtonTapped(sender: UIButton) {
+        camera.camera?.orthographicScale--
+        if camera.camera?.orthographicScale < 3 {
+            camera.camera?.orthographicScale = 3
+            zoomInButton.enabled = false
+        }
+        zoomOutButton.enabled = true
+    }
+    
+    @IBAction func zoomOutButtonTapped(sender: UIButton) {
+        camera.camera?.orthographicScale++
+        if camera.camera?.orthographicScale > 20 {
+            camera.camera?.orthographicScale = 20
+            zoomOutButton.enabled = false
+        }
+        zoomInButton.enabled = true
     }
     
     func disableAllButtons() {
@@ -208,8 +228,9 @@ class HomeViewController: UIViewController {
     func handlePinch(sender: UIPinchGestureRecognizer) {
         switch state {
         case .Normal:
-            let z = camera.position.z + Float(sender.scale) / 2000.0 * Float(sender.velocity)
-            camera.transform = SCNMatrix4Translate(camera.transform, camera.position.x, camera.position.y, z)
+            break
+//            let z = camera.position.z + Float(sender.scale) / 2000.0 * Float(sender.velocity)
+//            camera.transform = SCNMatrix4Translate(camera.transform, camera.position.x, camera.position.y, z)
         case .Translate:
             selectedNode.position.y = selectedNode.position.y + Float(sender.scale) / 20.0 * Float(sender.velocity)
         default:
