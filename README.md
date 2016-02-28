@@ -17,4 +17,9 @@ The functionalities are:
 7. Users can zoom in or zoom out.
 
 Remarks:
+
 The backend API is hosted at Parse.com, created by myself.
+
+Below is a link to my app's demonstration video.
+
+https://youtu.be/AhiGIsc3_eE
