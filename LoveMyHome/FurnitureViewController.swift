@@ -25,7 +25,7 @@ class FurnitureViewController: UIViewController {
         super.viewDidLoad()
         furnitureList = fetchAllFurniture()
         
-        var right : UIBarButtonItem = UIBarButtonItem(title: "Refresh", style: UIBarButtonItemStyle.Plain, target: self, action: "downloadThumbnails")
+        let right : UIBarButtonItem = UIBarButtonItem(title: "Refresh", style: UIBarButtonItemStyle.Plain, target: self, action: "downloadThumbnails")
         
         self.navigationItem.rightBarButtonItem = right
     }
