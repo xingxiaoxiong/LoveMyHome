@@ -193,6 +193,9 @@ class HomeViewController: UIViewController {
     
     func handlePinch(sender: UIPinchGestureRecognizer) {
         switch state {
+        case .Normal:
+            let z = camera.position.z + Float(sender.scale) / 2000.0 * Float(sender.velocity)
+            camera.transform = SCNMatrix4Translate(camera.transform, camera.position.x, camera.position.y, z)
         case .Translate:
             selectedNode.position.y = selectedNode.position.y + Float(sender.scale) / 20.0 * Float(sender.velocity)
         default:
