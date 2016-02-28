@@ -47,6 +47,7 @@ class FurnitureViewController: UIViewController {
             sharedContext.deleteObject(furniture)
         }
         furnitureList = [Furniture]()
+        self.collectionView.reloadData()
         CoreDataStackManager.sharedInstance().saveContext()
         
         activityIndicatorStart()
@@ -94,6 +95,7 @@ class FurnitureViewController: UIViewController {
     func alertViewForError(error: NSError) {
         let alert = UIAlertController(title: "Alert", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.Default, handler: nil))
+        activityIndicatorStop()
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
