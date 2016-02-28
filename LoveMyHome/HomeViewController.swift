@@ -134,7 +134,7 @@ class HomeViewController: UIViewController {
         NSKeyedArchiver.archiveRootObject(self.myDesign, toFile: designFilePath)
     }
     
-    func sceneSetup () {
+    func setRoomStructure() {
         
         // Constructing basic structure
         let leftWallGeometry = SCNBox(width: Constants.WallThickness, height: Constants.RoomYLength, length: Constants.RoomZLength, chamferRadius: 0.0)
@@ -148,19 +148,19 @@ class HomeViewController: UIViewController {
         let rightWallNode = SCNNode(geometry: rightWallGeometry)
         rightWallNode.position = SCNVector3Make(Float(Constants.RoomXLength) / 2.0, Float(Constants.RoomYLength) / 2.0, 0)
         staticGeometry.addChildNode(rightWallNode)
-
+        
         let floorGeometry = SCNBox(width: Constants.RoomXLength, height: Constants.WallThickness, length: Constants.RoomZLength, chamferRadius: 0.0)
         floorGeometry.firstMaterial!.diffuse.contents = UIColor.lightGrayColor()
         //let floorNode = SCNNode(geometry: floorGeometry)
         floorNode.geometry = floorGeometry
         floorNode.position = SCNVector3Make(0, -Float(Constants.WallThickness) / 2.0, 0)
         staticGeometry.addChildNode(floorNode)
-
-//        let ceilingGeometry = SCNBox(width: Constants.RoomXLength, height: Constants.WallThickness, length: Constants.RoomZLength, chamferRadius: 0.0)
-//        ceilingGeometry.firstMaterial!.diffuse.contents = UIColor.lightGrayColor()
-//        let ceilingNode = SCNNode(geometry: ceilingGeometry)
-//        ceilingNode.position = SCNVector3Make(0, Float(Constants.RoomYLength), 0)
-//        staticGeometry.addChildNode(ceilingNode)
+        
+        //        let ceilingGeometry = SCNBox(width: Constants.RoomXLength, height: Constants.WallThickness, length: Constants.RoomZLength, chamferRadius: 0.0)
+        //        ceilingGeometry.firstMaterial!.diffuse.contents = UIColor.lightGrayColor()
+        //        let ceilingNode = SCNNode(geometry: ceilingGeometry)
+        //        ceilingNode.position = SCNVector3Make(0, Float(Constants.RoomYLength), 0)
+        //        staticGeometry.addChildNode(ceilingNode)
         
         let frontGeometry = SCNBox(width: Constants.RoomXLength, height: Constants.RoomYLength, length: Constants.WallThickness, chamferRadius: 0.0)
         frontGeometry.firstMaterial!.diffuse.contents = UIColor.lightGrayColor()
@@ -173,6 +173,11 @@ class HomeViewController: UIViewController {
         let backNode = SCNNode(geometry: backGeometry)
         backNode.position = SCNVector3Make(0, Float(Constants.RoomYLength) / 2.0, Float(Constants.RoomZLength) / 2.0)
         staticGeometry.addChildNode(backNode)
+    }
+    
+    func sceneSetup () {
+        
+        setRoomStructure()
         
         //debugLoadModelFromJSON()
         //debugLoadModelFromDae()
