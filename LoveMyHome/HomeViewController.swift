@@ -34,6 +34,7 @@ class HomeViewController: UIViewController {
     
     var state: State = .Normal
     var selectedNode: SCNNode = SCNNode()
+    
     // view
     var cameraXRot: Float = 0.0
     var geoZRot: Float = 0.0
@@ -134,22 +135,22 @@ class HomeViewController: UIViewController {
         NSKeyedArchiver.archiveRootObject(self.myDesign, toFile: designFilePath)
     }
     
-    func setRoomStructure() {
+    func setRoomStructure(x: CGFloat, z: CGFloat) {
         
         // Constructing basic structure
-        let leftWallGeometry = SCNBox(width: Constants.WallThickness, height: Constants.RoomYLength, length: Constants.RoomZLength, chamferRadius: 0.0)
+        let leftWallGeometry = SCNBox(width: Constants.WallThickness, height: Constants.RoomYLength, length: z, chamferRadius: 0.0)
         leftWallGeometry.firstMaterial!.diffuse.contents = UIColor.lightGrayColor()
         let leftWallNode = SCNNode(geometry: leftWallGeometry)
-        leftWallNode.position = SCNVector3Make(-Float(Constants.RoomXLength) / 2.0, Float(Constants.RoomYLength) / 2.0, 0)
+        leftWallNode.position = SCNVector3Make(-Float(x) / 2.0, Float(Constants.RoomYLength) / 2.0, 0)
         staticGeometry.addChildNode(leftWallNode)
         
-        let rightWallGeometry = SCNBox(width: Constants.WallThickness, height: Constants.RoomYLength, length: Constants.RoomZLength, chamferRadius: 0.0)
+        let rightWallGeometry = SCNBox(width: Constants.WallThickness, height: Constants.RoomYLength, length: z, chamferRadius: 0.0)
         rightWallGeometry.firstMaterial!.diffuse.contents = UIColor.lightGrayColor()
         let rightWallNode = SCNNode(geometry: rightWallGeometry)
-        rightWallNode.position = SCNVector3Make(Float(Constants.RoomXLength) / 2.0, Float(Constants.RoomYLength) / 2.0, 0)
+        rightWallNode.position = SCNVector3Make(Float(x) / 2.0, Float(Constants.RoomYLength) / 2.0, 0)
         staticGeometry.addChildNode(rightWallNode)
         
-        let floorGeometry = SCNBox(width: Constants.RoomXLength, height: Constants.WallThickness, length: Constants.RoomZLength, chamferRadius: 0.0)
+        let floorGeometry = SCNBox(width: x, height: Constants.WallThickness, length: z, chamferRadius: 0.0)
         floorGeometry.firstMaterial!.diffuse.contents = UIColor.lightGrayColor()
         //let floorNode = SCNNode(geometry: floorGeometry)
         floorNode.geometry = floorGeometry
@@ -162,22 +163,22 @@ class HomeViewController: UIViewController {
         //        ceilingNode.position = SCNVector3Make(0, Float(Constants.RoomYLength), 0)
         //        staticGeometry.addChildNode(ceilingNode)
         
-        let frontGeometry = SCNBox(width: Constants.RoomXLength, height: Constants.RoomYLength, length: Constants.WallThickness, chamferRadius: 0.0)
+        let frontGeometry = SCNBox(width: x, height: Constants.RoomYLength, length: Constants.WallThickness, chamferRadius: 0.0)
         frontGeometry.firstMaterial!.diffuse.contents = UIColor.lightGrayColor()
         let frontNode = SCNNode(geometry: frontGeometry)
-        frontNode.position = SCNVector3Make(0, Float(Constants.RoomYLength) / 2.0, -Float(Constants.RoomZLength) / 2.0)
+        frontNode.position = SCNVector3Make(0, Float(Constants.RoomYLength) / 2.0, -Float(z) / 2.0)
         staticGeometry.addChildNode(frontNode)
         
-        let backGeometry = SCNBox(width: Constants.RoomXLength, height: Constants.RoomYLength, length: Constants.WallThickness, chamferRadius: 0.0)
+        let backGeometry = SCNBox(width: x, height: Constants.RoomYLength, length: Constants.WallThickness, chamferRadius: 0.0)
         backGeometry.firstMaterial!.diffuse.contents = UIColor.lightGrayColor()
         let backNode = SCNNode(geometry: backGeometry)
-        backNode.position = SCNVector3Make(0, Float(Constants.RoomYLength) / 2.0, Float(Constants.RoomZLength) / 2.0)
+        backNode.position = SCNVector3Make(0, Float(Constants.RoomYLength) / 2.0, Float(z) / 2.0)
         staticGeometry.addChildNode(backNode)
     }
     
     func sceneSetup () {
         
-        setRoomStructure()
+        setRoomStructure(5, z: 10)
         
         //debugLoadModelFromJSON()
         //debugLoadModelFromDae()
