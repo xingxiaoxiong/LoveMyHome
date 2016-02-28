@@ -125,6 +125,7 @@ class HomeViewController: UIViewController {
         for node in dynamicGeometry.childNodes {
             node.removeFromParentNode()
         }
+        state = .Normal
         disableAllButtons()
     }
     

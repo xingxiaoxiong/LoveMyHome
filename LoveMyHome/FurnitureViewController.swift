@@ -244,9 +244,8 @@ extension FurnitureViewController: UICollectionViewDelegate, UICollectionViewDat
                     }
                 } else {
                     
-                    furniture.modelData = data
-                    
                     dispatch_async(dispatch_get_main_queue(), {
+                        furniture.modelData = data
                         
                         cell.indicator.text = "Tap to Pick"
                         cell.indicator.backgroundColor = UIColor.blueColor()
