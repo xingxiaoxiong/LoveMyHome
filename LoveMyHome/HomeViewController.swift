@@ -28,6 +28,7 @@ class HomeViewController: UIViewController {
     var geometryNode: SCNNode = SCNNode()
     var staticGeometry: SCNNode = SCNNode()
     var dynamicGeometry: SCNNode = SCNNode()
+    var floorNode: SCNNode = SCNNode()
     
     var state: State = .Normal
     var selectedNode: SCNNode = SCNNode()
@@ -130,7 +131,8 @@ class HomeViewController: UIViewController {
 
         let floorGeometry = SCNBox(width: Constants.RoomXLength, height: Constants.WallThickness, length: Constants.RoomZLength, chamferRadius: 0.0)
         floorGeometry.firstMaterial!.diffuse.contents = UIColor.lightGrayColor()
-        let floorNode = SCNNode(geometry: floorGeometry)
+        //let floorNode = SCNNode(geometry: floorGeometry)
+        floorNode.geometry = floorGeometry
         floorNode.position = SCNVector3Make(0, -Float(Constants.WallThickness) / 2.0, 0)
         staticGeometry.addChildNode(floorNode)
 
@@ -232,7 +234,7 @@ class HomeViewController: UIViewController {
             
             // Rotate geometryNode arount its Y axis
             var newGeoZRot = geoZRot
-            newGeoZRot -= (Float)(translation.x)*(Float)(M_PI)/180.0
+            newGeoZRot += (Float)(translation.x)*(Float)(M_PI)/180.0
             geometryNode.rotation = SCNVector4Make(0, 1, 0, newGeoZRot)
             
             if(sender.state == UIGestureRecognizerState.Ended) {
@@ -249,10 +251,35 @@ class HomeViewController: UIViewController {
 //            if(sender.state == UIGestureRecognizerState.Ended) {
 //                cameraXRot = newCameraXRot
 //            }
+            
         case .Translate:
-            let deltaX = (Float)(translation.x) / 1000.0
-            let deltaZ = (Float)(translation.y) / 1000.0
-            selectedNode.position = SCNVector3Make(selectedNode.position.x + deltaX, selectedNode.position.y, selectedNode.position.z + deltaZ)
+            let p = sender.locationInView(sceneView)
+            let hitResults = sceneView.hitTest(p, options: [SCNHitTestRootNodeKey: staticGeometry])
+            
+            //var moveVector = SCNVector3Zero
+            
+            if hitResults.count > 0 {
+                
+                let result: SCNHitTestResult = hitResults[0]
+                let node = result.node
+                
+                if node == floorNode {
+                    let hitLocation = result.worldCoordinates
+//                    moveVector = SCNVector3Make(hitLocation.x - selectedNode.position.x, 0, hitLocation.z - selectedNode.position.z)
+                    selectedNode.position = SCNVector3Make(hitLocation.x, selectedNode.position.y, hitLocation.z)
+                }
+            }
+            
+//            if(sender.state == UIGestureRecognizerState.Ended) {
+//                selectedNode.position = SCNVector3Make(selectedNode.position.x + moveVector.x, 0, selectedNode.position.z + moveVector.z)
+//            }
+            
+            //break
+            
+//            let deltaX = (Float)(translation.x) / 1000.0
+//            let deltaZ = (Float)(translation.y) / 1000.0
+//            selectedNode.position = SCNVector3Make(selectedNode.position.x + deltaX, selectedNode.position.y, selectedNode.position.z + deltaZ)
+            
 //            selectedNode.transform = SCNMatrix4MakeTranslation(xCoord, selectedNode.position.y, zCoord)
         case .Rotate:
             let deltaAngle = (Float)(translation.x)*(Float)(M_PI)/180.0 / 3.0
@@ -262,22 +289,45 @@ class HomeViewController: UIViewController {
     }
     
     func handleTap(gestureRecognize: UIGestureRecognizer) {
-        let p = gestureRecognize.locationInView(sceneView)
-        let hitResults = sceneView.hitTest(p, options: nil)
-    
-        if hitResults.count > 0 {
-            let result: AnyObject! = hitResults[0]
-            guard let node = result.node else {
-                return
+        
+        switch state {
+        case .Normal:
+            let p = gestureRecognize.locationInView(sceneView)
+            let hitResults = sceneView.hitTest(p, options: nil)
+
+            if hitResults.count > 0 {
+                let result: AnyObject! = hitResults[0]
+                guard let node = result.node else {
+                    return
+                }
+                
+                if node.parentNode == dynamicGeometry {
+                    //node.geometry?.firstMaterial?.diffuse.contents = UIColor.darkGrayColor()
+                    //TransformWidget(node: node)
+                    state = .Translate
+                    selectNode(node)
+                }
             }
             
-            if node.parentNode == dynamicGeometry {
-                //node.geometry?.firstMaterial?.diffuse.contents = UIColor.darkGrayColor()
-                //TransformWidget(node: node)
-                state = .Translate
-                selectNode(node)
-            }
+        case .Translate:
+//            let p = gestureRecognize.locationInView(sceneView)
+//            let hitResults = sceneView.hitTest(p, options: [SCNHitTestRootNodeKey: staticGeometry])
+//
+//            if hitResults.count > 0 {
+//                let result: SCNHitTestResult = hitResults[0]
+//                let node = result.node
+//
+//                if node == floorNode {
+//                    let hitLocation = result.worldCoordinates
+//                    selectedNode.position = SCNVector3Make(hitLocation.x, selectedNode.position.y, hitLocation.z)
+//                }
+//            }
+
+            break
+        case .Rotate:
+            break
         }
+        
     }
     
     func modelFromJson(data: NSDictionary) -> SCNNode {

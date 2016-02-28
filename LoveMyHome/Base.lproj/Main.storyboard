@@ -80,7 +80,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="8qd-dm-frg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3Cb-7z-LQd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8qd-dm-frg" secondAttribute="trailing" id="8Va-g0-bbp"/>
